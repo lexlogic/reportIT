@@ -1,10 +1,8 @@
 <?php
-require_once 'core/Init.php';
+require_once '../Init.php';
 
 $user = new User();
 if($user->isLoggedIn() && $user->hasPermission('manager')) {
-
-
     $totalEngagements = DB::getInstance()->getAssoc("SELECT * FROM engagements");
     foreach($totalEngagements->results() as $results) {
         $engagements[] = $results;
@@ -31,12 +29,12 @@ if($user->isLoggedIn() && $user->hasPermission('manager')) {
     </div>
     <?php
     $page->endBody();
-    echo $page->render('includes/template.php');
+    echo $page->render('../includes/template.php');
 } else {
-    Redirect::to('index.php');
+    Redirect::to('../dashboard/');
 } ?>
 
-<script type='text/javascript' src='js/jquery.fullcalendar/fullcalendar/fullcalendar.js'></script>
+<script type='text/javascript' src='../assets/js/jquery.fullcalendar/fullcalendar/fullcalendar.js'></script>
 <script type="text/javascript">
     $(document).ready(function() {
 

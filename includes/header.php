@@ -32,9 +32,9 @@
                     <ul class="cl-vnavigation">
                         <?php
                         $pages = array(
-                            'index.php' => array('Pentester Console' => 'fa-home'),
-                            'schedule.php' => array('Engagement Schedule' => 'fa-calendar'),
-                            'manager.php' => array('Manager Console' => 'fa-desktop')
+                            '../dashboard/' => array('Pentester Console' => 'fa-home'),
+                            '../schedule/' => array('Engagement Schedule' => 'fa-calendar'),
+                            '../manage/' => array('Manager Console' => 'fa-desktop')
                         ) ;
                         $i = basename($_SERVER['PHP_SELF']);
 

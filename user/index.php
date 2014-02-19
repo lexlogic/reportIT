@@ -1,5 +1,5 @@
 <?php
-require_once 'core/Init.php';
+require_once '../Init.php';
 
 $user = new User();
 if (isset($_GET["id"])) {
@@ -61,7 +61,7 @@ if($user->isLoggedIn()) {
     </form>
     <?php
     $page->endBody();
-    echo $page->render('includes/template.php');
+    echo $page->render('../includes/template.php');
 } else {
-    Redirect::to('login.php');
+    Redirect::to('../login/');
 }

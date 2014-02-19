@@ -1,5 +1,5 @@
 <?php
-require_once 'core/Init.php';
+require_once '../Init.php';
 $user = new User();
 
 if(isset($_GET['finding'])) {
@@ -239,7 +239,7 @@ if($user->isLoggedIn()) {
                     '`group`' => Input::get('group')
                 ));
             }
-            Redirect::to('manager.php');
+            Redirect::to('../manage/');
         }
         if (!empty($_POST['modifyFinding'])) {
             $getfinding = DB::getInstance()->getAssoc("SELECT * FROM findings WHERE findingname = ?", array(Input::get('name')));
@@ -259,7 +259,7 @@ if($user->isLoggedIn()) {
                     'recommendations' => Input::get('recommendations')
                 ));
             }
-            Redirect::to('manager.php');
+            Redirect::to('../manage/');
         }
         if (!empty($_POST['new-task'])) {
             $validate = new Validate();
@@ -277,7 +277,7 @@ if($user->isLoggedIn()) {
                     'category' => Input::get('category')
                 ));
             }
-            Redirect::to('manager.php');
+            Redirect::to('../manage/');
         }
         if (!empty($_POST['new-category'])) {
             $validate = new Validate();
@@ -291,7 +291,7 @@ if($user->isLoggedIn()) {
                     'name' => Input::get('category')
                 ));
             }
-            Redirect::to('manager.php');
+            Redirect::to('../manage/');
         }
         if (!empty($_POST['new-engagement'])) {
             $validate = new Validate();
@@ -323,7 +323,7 @@ if($user->isLoggedIn()) {
                         }
                     }
                 }
-                Redirect::to('manager.php');
+                Redirect::to('../manage/');
             }
         }
         if (!empty($_POST['new-finding'])) {
@@ -340,7 +340,7 @@ if($user->isLoggedIn()) {
                 'username' => $user->data()->username,
                 'engagement' => $name
             ));
-            Redirect::to('manager.php');
+            Redirect::to('../manage/');
         }
         if (!empty($_POST['new-user'])) {
             $validate = new Validate();
@@ -370,7 +370,7 @@ if($user->isLoggedIn()) {
                         'salt' => $salt,
                         'group' => 1
                     ));
-                    Redirect::to('manager.php');
+                    Redirect::to('../manage/');
 
                 } catch(Exception $e) {
                     die($e->getMessage());
@@ -410,7 +410,7 @@ if($user->isLoggedIn()) {
                     'POC_Zip' => Input::get('poc_zip')
                 ));
             }
-            Redirect::to('manager.php');
+            Redirect::to('../manage/');
         }
         if (!empty($_POST['pentester'])) {
             $getTask = DB::getInstance()->getAssoc("SELECT * FROM tasks WHERE engagement = ?", array(Input::get('engagement')));
@@ -431,7 +431,7 @@ if($user->isLoggedIn()) {
                     'username' => Input::get('username')
                 ));
             }
-            Redirect::to('manager.php');
+            Redirect::to('../manage/');
         }
         if (!empty($_POST['change-tasks'])) {
             $getTaskTask = DB::getInstance()->getAssoc("SELECT * FROM tasks WHERE name = ?", array(Input::get('oldtask')));
@@ -452,7 +452,7 @@ if($user->isLoggedIn()) {
                     'task' => Input::get('newtask')
                 ));
             }
-            Redirect::to('manager.php');
+            Redirect::to('../manage/');
         }
         if (!empty($_POST['modify-categories'])) {
             $getTaskTask = DB::getInstance()->getAssoc("SELECT * FROM category WHERE name = ?", array(Input::get('oldcategory')));
@@ -473,7 +473,7 @@ if($user->isLoggedIn()) {
                     'category' => Input::get('newcategory')
                 ));
             }
-            Redirect::to('manager.php');
+            Redirect::to('../manage/');
         }
         if (!empty($_POST['delete-tasks'])) {
             $getTaskTask = DB::getInstance()->getAssoc("SELECT * FROM tasks WHERE name = ?", array(Input::get('task')));
@@ -490,7 +490,7 @@ if($user->isLoggedIn()) {
             foreach ($categoryTaskArray as $getInfo) {
                 DB::getInstance()->delete('category_tasks', array('id', '=', $getInfo['id']));
             }
-            Redirect::to('manager.php');
+            Redirect::to('../manage/');
         }
         if (!empty($_POST['delete-findings'])) {
             $getfinding = DB::getInstance()->getAssoc("SELECT * FROM findings WHERE findingname = ?", array(Input::get('finding')));
@@ -500,11 +500,11 @@ if($user->isLoggedIn()) {
             foreach ($finding as $getInfo) {
                 DB::getInstance()->delete('findings', array('id', '=', $getInfo['id']));
             }
-            Redirect::to('manager.php');
+            Redirect::to('../manage/');
         }
         if (!empty($_POST['delete-user'])) {
             DB::getInstance()->delete('users', array('id', '=', Input::get('users')));
-            Redirect::to('manager.php');
+            Redirect::to('../manage/');
         }
         if (!empty($_POST['delete-categories'])) {
             $getCategoryTask = DB::getInstance()->getAssoc("SELECT * FROM category_tasks WHERE category = ?", array(Input::get('category')));
@@ -529,7 +529,7 @@ if($user->isLoggedIn()) {
             foreach ($categories as $category) {
                 DB::getInstance()->delete('category', array('id', '=', $category['id']));
             }
-            Redirect::to('manager.php');
+            Redirect::to('../manage/');
         }
     }
 
@@ -1171,5 +1171,5 @@ if($user->isLoggedIn()) {
     </div>
 <?php
 } else {
-    Redirect::to('login.php');
+    Redirect::to('../login/');
 }

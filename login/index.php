@@ -1,5 +1,5 @@
 <?php
-require_once 'core/Init.php';
+require_once '../Init.php';
 
 if(Input::exists()) {
     $user = new User();
@@ -7,9 +7,9 @@ if(Input::exists()) {
     $login = $user->login(Input::get('username'), Input::get('password'), $remember);
 
     if($login) {
-        Redirect::to('index.php');
+        Redirect::to('../dashboard/');
     } else {
-        Redirect::to('login.php');
+        Redirect::to('../login/');
     }
 }
 ?>
@@ -20,25 +20,25 @@ if(Input::exists()) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="shortcut icon" href="../assets/images/favicon.png">
 
     <title>reportIT</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:300,200,100' rel='stylesheet' type='text/css'>
 
     <!-- Bootstrap core CSS -->
-    <link href="js/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="fonts/font-awesome-4/css/font-awesome.min.css">
+    <link href="../assets/js/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome-4/css/font-awesome.min.css">
 
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="../assets/css/style.css" rel="stylesheet" />
 </head>
 <body class="texture">
 <div id="cl-wrapper" class="login-container">
     <div class="middle-login">
         <div class="block-flat">
             <div class="header">
-                <h3 class="text-center"><img class="logo-img" src="images/logo.png" alt="logo"/>reportIT</h3>
+                <h3 class="text-center"><img class="logo-img" src="../assets/images/logo.png" alt="logo"/>reportIT</h3>
             </div>
             <div>
                 <form style="margin-bottom: 0px !important;" class="form-horizontal" action="" method="post">
@@ -72,17 +72,17 @@ if(Input::exists()) {
         <div class="text-center out-links"><a href="#">&copy; 2014 reportIT</a></div>
     </div>
 </div>
-<script src="js/jquery.js"></script>
-<script type="text/javascript" src="js/behaviour/general.js"></script>
+<script src="../assets/js/jquery.js"></script>
+<script type="text/javascript" src="../assets/js/behaviour/general.js"></script>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="js/behaviour/voice-commands.js"></script>
-<script src="js/bootstrap/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/jquery.flot/jquery.flot.js"></script>
-<script type="text/javascript" src="js/jquery.flot/jquery.flot.pie.js"></script>
-<script type="text/javascript" src="js/jquery.flot/jquery.flot.resize.js"></script>
-<script type="text/javascript" src="js/jquery.flot/jquery.flot.labels.js"></script>
+<script src="../assets/js/behaviour/voice-commands.js"></script>
+<script src="../js/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.flot/jquery.flot.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.flot/jquery.flot.pie.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.flot/jquery.flot.resize.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.flot/jquery.flot.labels.js"></script>
 </body>
 </html>

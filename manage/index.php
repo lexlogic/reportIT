@@ -1,5 +1,5 @@
 <?php
-require_once 'core/Init.php';
+require_once '../Init.php';
 
 $user = new User();
 if($user->isLoggedIn() && $user->hasPermission('manager')) {
@@ -266,11 +266,11 @@ if($user->isLoggedIn() && $user->hasPermission('manager')) {
             chart.render();
         }
     </script>
-    <script type="text/javascript" src="js/canvasjs.min.js"></script>
+    <script type="text/javascript" src="../assets/js/canvasjs.min.js"></script>
     <?php
     include 'modals.php';
     $page->endBody();
-    echo $page->render('includes/template.php');
+    echo $page->render('../includes/template.php');
 } else {
-    Redirect::to('index.php');
+    Redirect::to('../dashboard/');
 }
