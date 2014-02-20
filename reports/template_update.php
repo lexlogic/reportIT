@@ -1,0 +1,13 @@
+<php
+$con=mysqli_connect("localhost","root","","reportify");
+// Check connection
+if (mysqli_connect_errno($con))
+{
+echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+print_r $_POST[];
+
+
+
+
+?>
