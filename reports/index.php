@@ -45,10 +45,10 @@ if($user->isLoggedIn() && $user->hasPermission('manager')) {
             </div>
             <div class="content">
                 <div id="editor">
-                    <form method="post" enctype="multipart/form-data" action="">
+                    <form method="post">
                         <textarea name="content" style="width:100%"></textarea>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-info" name="uploadfile" value="Submit">
+                            <input type="button" class="btn btn-info" onclick="save_template()" value="Submit">
                         </div>
                     </form>
                 </div>
@@ -84,99 +84,96 @@ if($user->isLoggedIn() && $user->hasPermission('manager')) {
     <div class="col-lg-12 pull-left">
         <div class="block-flat">
             <div class="header">
-                <h3>${FINDING_NAME}</h3>
-            </div>
-            <div class="content">
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <div style="float: left;">Dread Score Summary: ${CRI_DAM}<br><br>Critical Status: ${CRITICAL_STATUS}<br></div>
-                        </tr>
-                        <tr>
-                            <th>Risk Rating</th>
-                            <th>Damage Potential</th>
-                            <th>Reproducibility</th>
-                            <th>Exploitability</th>
-                            <th>Affected Users</th>
-                            <th>Discoverability</th>
-                            <th>Total</th>
-                            <th>Remediation Effort</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                ${RISK_RATE}
-                            </td>
-                            <td>
-                                ${CRI_DAM}
-                            </td>
-                            <td>
-                                ${CRI_REPRO}
-                            </td>
-                            <td>
-                                ${CRI_EXP}
-                            </td>
-                            <td>
-                                ${CRI_AFEC}
-                            </td>
-                            <td>
-                                ${CRI_DIS}
-                            </td>
-                            <td>
-                                ${CRI_TTL}
-                            </td>
-                            <td>
-                                ${CRI_REM}
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>Summary of Finding</th>
-                            <th>Proof of Concept</th>
-                            <th>Recommendations</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                ${CRITICAL_SUMMARY}
-                            </td>
-                            <td>
-                                ${CRITICAL_PROOF}
-                            </td>
-                            <td>
-                                ${CRITICAL_RECOMMENDATIONS}
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+
+                ${FINDING_NAME}<br>
+                <strong>Dread Score Summary&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; STATUS: </strong>${CRITICAL_STATUS}<br>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td colspan='4'>
+                                        <strong>Risk Rating</strong><br>
+                                    </td>
+                                    <td colspan='4'>
+                                        <p style="text-align: right;">${RISK_RATE}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Damage<br>
+                                        Potential<br>
+                                    </td>
+                                    <td>
+                                        Reproducibility<br>
+                                    </td>
+                                    <td>
+                                        Exploitability<br>
+                                    </td>
+                                    <td colspan='2'>
+                                        Affected Users<br>
+                                    </td>
+                                    <td>
+                                        Discoverability<br>
+                                    </td>
+                                    <td>
+                                        <p>Total</p>
+                                    </td>
+                                    <td>
+                                        Remediation<br>
+                                        Effort<br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ${CRI_DAM}<br>
+                                    </td>
+                                    <td>
+                                        ${CRI_REPRO}<br>
+                                    </td>
+                                    <td>
+                                        ${CRI_EXP}<br>
+                                    </td>
+                                    <td colspan='2'>
+                                        ${CRI_AFEC}<br>
+                                    </td>
+                                    <td>
+                                        ${CRI_DIS}<br>
+                                    </td>
+                                    <td>
+                                        ${CRI_TTL}<br>
+                                    </td>
+                                    <td>
+                                        ${CRI_REM}<br>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <strong>Summary of Finding</strong><br>
+                ${CRITICAL_SUMMARY}<br>
+                <strong>Proof of Concept</strong><br>
+                {CRITICAL_PROOF}<br>
+                <strong>Recommendations</strong><br>
+                ${CRITICAL_RECOMMENDATIONS}<br>
+
                 </div>
             </div>
-        </div>
     </div>
 
     <script>
-        function alertAllEditorIDs () {
-            var IDs = new Array();
-            var editorID;
-            for (editorID in tinyMCE.editors) {
-                IDs[IDs.length] = editorID;
-            };
-
-            alert("All editor IDs:\n" + IDs);
-        }
-        function save(){
-            var st = $('content');
+        function save_template(){
+            var st = tinyMCE.get('content').getContent();
             $.ajax({
                 type: "POST",
-                url: "index.php",
+                url: "template_update.php",
                 data: {data: st},
-                sucess: function (returndata) {
+                success: function (returndata) {
                     alert( "Data Loaded: " + returndata );
                     console.log(returndata);
                     checkstatus(data);
