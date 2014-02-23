@@ -255,9 +255,9 @@ if($user->isLoggedIn() && $user->hasPermission('manager')) {
                             showInLegend: true,
                             toolTipContent: "{y}%",
                             dataPoints: [
-                                {  y: <?php echo escape($complete); ?>, legendText:"Complete", indexLabel: "Complete" },
-                                {  y: <?php echo escape($onTime); ?>, legendText:"On Time", indexLabel: "On Time" },
-                                {  y: <?php echo escape($behindSchedule); ?>, legendText:"Behind Schedule", indexLabel: "Behind Schedule" }
+                                {  y: 10, legendText:"Complete", indexLabel: "Complete" },
+                                {  y: 40, legendText:"On Time", indexLabel: "On Time" },
+                                {  y: 30, legendText:"Behind Schedule", indexLabel: "Behind Schedule" }
                             ]
                         }
                     ]

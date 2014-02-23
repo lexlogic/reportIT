@@ -5,6 +5,22 @@ require_once '../Init.php';
 
 
 
+
+
+$page = new Page;
+$page->setTitle('Report Generator');
+$page->startBody();
+echo '<div class="col-lg-6 pull-left">';
+echo $_POST['content'];
+echo '</div>';
+$page->endBody();
+echo $page->render('../includes/template.php');
+
+
+
+
+
+
 $incomming = $_POST;
 $html_code= $_POST['data'];
 
