@@ -35,7 +35,6 @@ if($user->isLoggedIn()) {
     }
 
     fb($findingID[0], 'report findings');
-    //explode on ,
     $findings = explode(',',$findingID[0]['finding_id'] );
 
     $tempfilenum=0;
