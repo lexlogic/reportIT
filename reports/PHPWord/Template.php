@@ -84,24 +84,24 @@ class PHPWord_Template
      */
     public function setValue($search, $replace)
     {
-        fb($search,'Search from setValue');
-        fb($replace,'Replace from setValue');
+        //fb($search,'Search from setValue');
+        //fb($replace,'Replace from setValue');
         $pattern = '/<w:t>(.+?)<\/w:t>/';
         //$pattern = '|\$\{([^\}]+)\}|U';
-        fb($pattern, 'pattern from setValue');
+        //fb($pattern, 'pattern from setValue');
         preg_match_all($pattern, $this->_documentXML, $matches);
-        fb($matches, "matches from setValue");
+        //fb($matches, "matches from setValue");
         //foreach ($matches[0] as $value) {
         foreach ($matches[1] as $value) {
-            fb($value, 'from matches inside setValue');
+            //fb($value, 'from matches inside setValue');
             $valueCleaned = preg_replace('/<[^>]+>/', '', $value);
             $valueCleaned = preg_replace('/<\/[^>]+>/', '', $valueCleaned);
-            fb($valueCleaned, 'valueCleaned from matches inside setValue');
+            //fb($valueCleaned, 'valueCleaned from matches inside setValue');
             $this->_documentXML = str_replace($value, $valueCleaned, $this->_documentXML);
         }
 
         if (substr($search, 0, 2) !== '${' && substr($search, -1) !== '}') {
-            fb('inside if');
+            //fb('inside if');
             $search = '${' . $search . '}';
 
         }
@@ -113,6 +113,7 @@ class PHPWord_Template
         }
 
         $this->_documentXML = str_replace($search, $replace, $this->_documentXML);
+        //fb($this, 'documentXML');
     }
 
     /**
