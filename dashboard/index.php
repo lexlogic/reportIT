@@ -15,9 +15,6 @@ if($user->isLoggedIn()) {
     foreach($totalEngagements->results() as $results) {
         $engagements[] = $results;
     }
-    $getRemaining = DB::getInstance()->getAssoc("SELECT * FROM tasks WHERE status = 0");
-    foreach($getRemaining->results() as $results) {
-    }
     if(!empty($remaining)) {
         $tasksRemaining = array();
         foreach ($remaining as $left) {
@@ -239,7 +236,7 @@ if($user->isLoggedIn()) {
             </div>
         </div>
     </div>
-    <div class="md-modal custom-width md-effect-9" id="completetask">
+    <div class="md-modal md-effect-16" id="completetask">
         <form role="form" id="complete_tasks" method="post" action="" class="validate">
             <div class="md-content">
                 <div class="modal-header">

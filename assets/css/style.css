@@ -4460,11 +4460,11 @@ button::-moz-focus-inner {
   margin-top: 10px;
 }
 .md-content {
-  background: #FFFFFF;
-  border: 0 none;
-  border-radius: 5px;
-  color: #555555;
-  overflow: hidden;
+    border: 0px none;
+    border-radius: 5px;
+    color: #fff;
+    overflow: hidden;
+    background: none repeat scroll 0% 0% #333C45;
 }
 .md-content .modal-header {
   border-bottom: 0 none;

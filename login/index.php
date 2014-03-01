@@ -60,16 +60,18 @@ if(Input::exists()) {
                                 </div>
                             </div>
                         </div>
+                        <label style="float: left;"><input type="checkbox" id="remember" style="float: left; margin-right: 10px;" name="remember"> <h4 class="title" style="float: right;">Remember Me</h4></label>
                     </div>
                     <div class="foot">
-                        <label style="float: left;">Remember Me <input type="checkbox" id="remember" name="remember"></label>
-                        <button class="btn btn-primary" data-dismiss="modal" type="submit">Log me in</button>
+                        <button class="btn btn-primary" style="width: 100%;" type="submit">Sign in to Continue</button>
                     </div>
                 </form>
 
             </div>
         </div>
-        <div class="text-center out-links"><a href="#">&copy; 2014 reportIT</a></div>
+        <div class="text-center out-links block-flat" style="padding: 10px; margin-top: -15px;">
+            <h4 class="title">&copy; 2014 reportIT</h4>
+        </div>
     </div>
 </div>
 <script src="../assets/js/jquery.js"></script>

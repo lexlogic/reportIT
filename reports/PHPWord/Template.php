@@ -138,7 +138,6 @@ class PHPWord_Template
 
         $this->_objZip->addFromString('word/document.xml', $this->_documentXML);
 
-        // Close zip file
         if ($this->_objZip->close() === false) {
             throw new Exception('Could not close zip file.');
         }
