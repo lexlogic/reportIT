@@ -68,12 +68,11 @@ if($user->isLoggedIn()) {
     ?>
 
     <form role="form" id="add-finding" enctype="multipart/form-data" method="post" action="" class="validate">
-        <div class="md-content">
-            <div class="modal-header">
+        <div class="block-flat">
+            <div class="header">
                 <h3>New Finding</h3>
-                <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <div class="modal-body form">
+            <div class="content">
                 <div class="form-group">
                     <label>Finding Name</label>
                     <input type="text" class="form-control" name="name" placeholder="Finding Name">
