@@ -1,6 +1,8 @@
 <?php
+require_once 'FirePHPCore/fb.php';
 require_once '../Init.php';
- 
+
+
 $user = new User();
 if($user->isLoggedIn()) {
  
@@ -15,15 +17,27 @@ if($user->isLoggedIn()) {
     foreach($getTemplateID->results() as $results) {
         $templateID[] = $results;
     }
- 
- 
-    $report_id = '1';
-    $user_id ='1';
+
+     $getUserId = DB::getInstance()->getAssoc("SELECT id FROM users WHERE username = ?", array($user->data()->username));
+                                                    foreach($getUserId->results() as $results) {
+                                                        $userId[] = $results;
+                                                    }
+    $user_id=$userId[0]['id'];
+
+     if (empty($_POST['report_id'])) {
+         exit;
+     }
+     $report_id = $_POST['report_id'];
+    //$report_id = '1';
+    //$user_id ='1';
 
     $encode = $templateID[0]['template_ID'];
     $decoded = base64_decode($encode);
+    fb($user_id, 'userid');
+    fb($report_id,'reportid');
     $getFindingID = DB::getInstance()->getAssoc("SELECT finding_id from reports WHERE user_id = ? and id = ?", array($user_id, $report_id));
     foreach($getFindingID->results() as $results) {
+        fb($results, 'results');
         $findingID[] = $results;
     }
     $findings = explode(',',$findingID[0]['finding_id'] );

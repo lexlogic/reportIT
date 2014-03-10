@@ -1,4 +1,5 @@
 <?php
+require_once 'FirePHPCore/fb.php';
 require_once '../Init.php';
 
 $user = new User();
@@ -66,7 +67,47 @@ if($user->isLoggedIn()) {
     $page->setTitle('Complete Finding');
     $page->startBody();
     ?>
+    <?php
+    $getFindings = DB::getInstance()->getAssoc("SELECT findingname FROM findings");
+    fb($getFindings, 'findings result');
 
+    foreach($getFindings->results() as $results) {
+        $getFindingsArray[] = $results;
+    }
+
+    ?>
+     <div id="oldfinding">
+         <form role="form" id="old-finding" method="post" action="test.php" >
+         <div class="form-group">
+             <label>Findings</label>
+             <select class="select2" name="finding">
+                 <option>-- Select Finding --</option>
+                 <?php
+                 if(!empty($getFindingsArray)) {
+                     foreach($getFindingsArray as $finding) {
+                         echo '<option value="'.$finding['findingname'].'">';
+                         echo $finding['findingname'];
+                         echo '</option>';
+                     }
+                 }
+                 ?>
+             </select>
+             <br> <br>
+             <script>
+
+                     $("#newfinding").hide();
+                     function newfindingshow(){
+
+                         $("newfinding").show(1000);
+                         $("oldfinding").hide();
+                     }
+             </script>
+             <input type="button" class="btn btn-primary btn-flat" id="new-finding" name="new-finding" data-toggle="modal" data-target="#newfinding" Generate New Finding" />
+             <input type="submit" class="btn btn-primary btn-flat" name="old-finding" placeholder="Finding" />
+         </div>
+         </form>
+     </div>
+    <div id="newfinding" class="modal fade in" tabindex="-1" role="dialog">
     <form role="form" id="add-finding" enctype="multipart/form-data" method="post" action="" class="validate">
         <div class="block-flat">
             <div class="header">
@@ -120,6 +161,16 @@ if($user->isLoggedIn()) {
             </div>
         </div>
     </form>
+    </div>
+    <script>
+
+        $("#newfinding").hide();
+        function newfindingshow(){
+
+            $("newfinding").show(1000);
+            $("oldfinding").hide();
+        }
+    </script>
     <?php
     $page->endBody();
     echo $page->render('../includes/template.php');

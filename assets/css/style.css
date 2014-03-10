@@ -1181,7 +1181,7 @@ textarea.form-control {
 }
 input::-webkit-input-speech-button {
   -webkit-transform: scale(3, 2.2) translate(-2px, -1px);
-  background-color: #fff
+  background-color: #fff;
   display:block !important;
 }
 /*PAGES*/
@@ -1197,6 +1197,16 @@ input::-webkit-input-speech-button {
   position: absolute;
   margin-top: -170px;
   margin-left: -215px;
+}
+
+.login-container .start-up{
+    left: 30%;
+    margin-left: -215px;
+    margin-top: -170px;
+    position: absolute;
+    top: 50%;
+    width: 70%;
+}
 }
 .login-container .block-flat {
   padding: 0;

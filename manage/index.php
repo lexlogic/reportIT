@@ -20,14 +20,7 @@ if($user->isLoggedIn() && $user->hasPermission('manager')) {
         $tasksArray = array();
         if(!empty($tasks)) {
             foreach ($tasks as $task) {
-                $tasksArray[$task['username']][] = $task['name'];
-            }
-        }
-        if(!empty($tasks)) {
-            foreach ($tasks as $task) {
-                for ($i = count($tasks); $i < count($tasks)+1; $i++) {
-                    $tasksArray[$task['username']][$i] = $task['engagement'];
-                }
+                $tasksArray[$task['username']][] = array('Name' => $task['name']);
             }
         }
     }
@@ -111,7 +104,6 @@ if($user->isLoggedIn() && $user->hasPermission('manager')) {
                                     <thead>
                                     <tr>
                                         <th>Pentester</th>
-                                        <th>Engagement</th>
                                         <th>Tasks</th>
                                     </tr>
                                     </thead>
@@ -122,11 +114,11 @@ if($user->isLoggedIn() && $user->hasPermission('manager')) {
                                             echo '<tr class="odd gradeX">';
                                             if(!empty($task)) {
                                                 echo '<td>'.$task.'</td>';
-                                                echo '<td>'.$name[count($name)-1].'</td>';
-
                                                 echo '<td>';
-                                                for ($i = 0; $i < count($name)-1; $i++) {
-                                                    echo '<span class="label label-primary">'.$name[$i].'</span> ';
+                                                foreach($name as $names) {
+                                                    foreach ($names as $item) {
+                                                        echo '<span class="label label-primary">'.$item.'</span> ';
+                                                    }
                                                 }
                                                 echo '</td>';
                                             }

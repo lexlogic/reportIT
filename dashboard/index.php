@@ -181,6 +181,14 @@ if($user->isLoggedIn()) {
                                                     </div>';
                                                 } else {
                                                     echo 'Engagement Complete';
+                                                    //get report id
+
+                                                    echo '<form name="report" action="../reports/report.php" method="post">';
+                                                    $report_id=$engagement['report_id'];
+                                                    echo "<input type='hidden' name='report_id' value='$report_id'/>";
+                                                    echo '<input type="submit" class="btn btn-default btn-flat md-close" value="Generate Findings" />';
+                                                    echo '</form>';
+
                                                 }
                                                 echo '</td>';
                                                 echo '</tr>';
