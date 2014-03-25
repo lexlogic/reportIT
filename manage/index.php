@@ -1,4 +1,5 @@
 <?php
+require_once('FirePHPCore/fb.php');
 require_once '../Init.php';
 
 $user = new User();

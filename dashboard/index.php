@@ -1,15 +1,20 @@
 <?php
+require_once('FirePHPCore/fb.php');
 require_once '../Init.php';
 
 $user = new User();
 if($user->isLoggedIn()) {
     $totalTasks = DB::getInstance()->getAssoc("SELECT * FROM tasks WHERE username = ?", array($user->data()->username));
+    fb($totalTasks, 'Tasks based on username call');
     foreach($totalTasks->results() as $results) {
         $tasksArray[] = $results;
+        fb($results, 'Tasks assigned to user');
     }
     $getFindings = DB::getInstance()->getAssoc("SELECT * FROM findings WHERE username = ?", array($user->data()->username));
+    fb($getFindings, 'Get findings call');
     foreach($getFindings->results() as $results) {
         $findings[] = $results;
+        fb($results, 'Findings based on user');
     }
     $totalEngagements = DB::getInstance()->getAssoc("SELECT * FROM engagements");
     foreach($totalEngagements->results() as $results) {

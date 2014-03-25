@@ -1,5 +1,9 @@
 <?php
+
 require_once '../Init.php';
+
+
+
 $user = new User();
 
 if(isset($_GET['finding'])) {
@@ -312,6 +316,7 @@ if($user->isLoggedIn()) {
                 $getTasks = DB::getInstance()->getAssoc("SELECT * FROM category_tasks");
                 foreach($getTasks->results() as $results) {
                     $tasks[] = $results;
+                    fb($results, 'Category Task results');
                 }
                 foreach ($tasks as $task) {
                     foreach ($_POST['engagements'] as $type) {
@@ -323,10 +328,70 @@ if($user->isLoggedIn()) {
                         }
                     }
                 }
+
+                //TESTING CODE
+                //echo "testing code hit";
+                $company_input=Input::get('company').'-'.$type;
+                $start_date=Input::get('start');
+                $stop_date=Input::get('stop');
+                fb($company_input, 'name input');
+                fb($start_date, 'start date input');
+                fb($stop_date, 'stop date input');
+
+                $sqlstatment ="SELECT * FROM engagements WHERE engagement_name = $company_input and start = $start_date and stop =$stop_date";
+
+                fb($sqlstatment, "sql statement");
+                $getEngagementOn = DB::getInstance()->getAssoc("SELECT * FROM engagements WHERE engagement_name = ? and start = ? and stop = ?",
+                    array(Input::get('company').'-'.$type,Input::get('start'),Input::get('stop')));
+                foreach($getEngagementOn->results() as $results) {
+                    //Need to insert details into reports:
+                    //result_id, date, company_id, category_id
+
+                    $Engagements[] = $results;
+                    fb($results, 'results of engagements');
+                    $id_result = $results['id'];
+                    fb($id_result, 'id result');
+
+                    $getCompanyforcall = DB::getInstance()->getAssoc("SELECT * FROM company WHERE name = ?",
+                        array(Input::get('company')));
+                    fb($getCompanyforcall, 'Company CALL');
+                    $theComresult = $getCompanyforcall->results();
+                    fb($theComresult, 'The com araay result');
+                    fb($theComresult[0]['id'], 'The company result');
+                    //foreach($getCompanyforcall->results() as $results) {
+                      //  $tasks[] = $results;
+                        //fb($results, 'Category Task results');
+                    //}
+                    fb($type, 'type varible');
+                    $getCategoryforcall = DB::getInstance()->getAssoc("SELECT * FROM category WHERE name = '$type'");
+                    fb($getCategoryforcall, 'Category CALL');
+                    $theCatresult = $getCategoryforcall->results();
+                    fb($theCatresult, 'The cat araay result');
+                    fb($theCatresult[0]['id'], 'The category result');
+
+                    //foreach($getTasks->results() as $results) {
+                        //$tasks[] = $results;
+                        //fb($results, 'Category Task results');
+                    //}
+
+                    $newReport = DB::getInstance()->insertAssoc('reports', array(
+                        'id' => $id_result,
+                        'date' => $stop_date,
+                        'company_id' => $theComresult[0]['id'],
+                        'category_id' => $theCatresult[0]['id']
+                    ));
+
+                    $updateEngagement = DB::getInstance()->update('engagements', $id_result, array(
+                        'report_id' => $id_result,
+                    ));
+
+                }
+
                 Redirect::to('../manage/');
             }
         }
         if (!empty($_POST['new-finding'])) {
+            fb('new-finding in modals');
             $newTask = DB::getInstance()->insertAssoc('findings', array(
                 'findingname' => Input::get('name'),
                 'dreaddamage' => Input::get('dds'),
@@ -340,6 +405,7 @@ if($user->isLoggedIn()) {
                 'username' => $user->data()->username,
                 'engagement' => $name
             ));
+            fb($newTask, 'Modals new-finding insert');
             Redirect::to('../manage/');
         }
         if (!empty($_POST['new-user'])) {
@@ -413,25 +479,51 @@ if($user->isLoggedIn()) {
             Redirect::to('../manage/');
         }
         if (!empty($_POST['pentester'])) {
+            fb($_POST['pentester'], 'Complete POST DUMP');
             $getTask = DB::getInstance()->getAssoc("SELECT * FROM tasks WHERE engagement = ?", array(Input::get('engagement')));
+            fb($getTask, 'getTask DB call');
             foreach($getTask->results() as $results) {
                 $taskArray[] = $results;
+                fb($results, 'getTask result in each loop');
             }
             $getEngagementId = DB::getInstance()->getAssoc("SELECT * FROM engagements WHERE engagement_name = ?", array(Input::get('engagement')));
             foreach($getEngagementId->results() as $results) {
                 $getId[] = $results;
+                fb($results, 'Results from getEngagementID');
             }
             foreach ($getId as $id) {
                 $update = DB::getInstance()->update('engagements', $id['id'], array(
                     'username' => Input::get('username')
                 ));
+                fb($update, 'update call from engagements');
             }
             foreach ($taskArray as $getInfo) {
                 $update = DB::getInstance()->update('tasks', $getInfo['id'], array(
                     'username' => Input::get('username')
                 ));
+                fb($update, 'update call from tasks');
             }
-            Redirect::to('../manage/');
+
+            //TESTING CODE
+            fb('in assign pentest logic');
+            //update reports db with the user id
+            $name=Input::get('username');
+            fb($name,'Name');
+            $getUserIdCall = DB::getInstance()->getAssoc("SELECT * FROM users WHERE username = '$name'");
+            fb($getUserIdCall, 'User CALL');
+            $getUserIdresult = $getUserIdCall->results();
+            fb($getUserIdresult, 'The user array result');
+            fb($getUserIdresult[0]['id'], 'The user result');
+
+            $getEngagementId = DB::getInstance()->getAssoc("SELECT * FROM engagements WHERE engagement_name = ?", array(Input::get('engagement')));
+            $EngagementIdResult = $getEngagementId->results();
+            fb($EngagementIdResult, 'The engagement array result');
+            fb($EngagementIdResult[0]['id'], 'The engagement result');
+
+            $update = DB::getInstance()->update('reports', $EngagementIdResult[0]['id'], array(
+                'user_id' => $getUserIdresult[0]['id']));
+
+            //Redirect::to('../manage/');
         }
         if (!empty($_POST['change-tasks'])) {
             $getTaskTask = DB::getInstance()->getAssoc("SELECT * FROM tasks WHERE name = ?", array(Input::get('oldtask')));
