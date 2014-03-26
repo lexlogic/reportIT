@@ -1,3 +1,9 @@
+<?php
+
+require_once '../Init.php';
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,37 +24,25 @@
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet" />
 </head>
-<script>
-    $(document).ready(function(){
-        $('.slider1').bxSlider({
-            slideWidth: 200,
-            minSlides: 2,
-            maxSlides: 3,
-            slideMargin: 10
-        });
-    });
-</script>
 <body class="texture">
-<div id="cl-wrapper" class="login-container">
-    <div class="start-up">
-        <div class="block-flat">
-            <div class="header">
+        <div class="header">
                 <h3 class="text-center"><img class="logo-img" src="../assets/images/logo.png" alt="logo"/>reportIT</h3>
             </div>
-            <div class="slider1">
-                Welcome to ReportIT!
-             <div class="slide"><div id="user-startup" class="block-flat"></div>
-                Lets first create a user.
 
+                Welcome to ReportIT!
+             <div id="user-startup" class="modal">
+                Lets first create a user.
+                 <form>
                 Username: <input type="text"/>
                 Password: <input type="password" />
                 Password(again): <input type="password" />
-             </div>
-                Congrats on your first user! This user will have Manager role assigned to it.
 
-            <div class="slide"><div id="cat-startup" class="block-flat"></div>
+                Congrats on your first user! This user will have Manager role assigned to it.
+                <input type="button" class="btn btn-primary btn-flat" id="category" name="next-category-button" data-toggle="modal" data-target="#cat-startup" value="Next"/>
+             </div>
+                <div id="cat-startup" class="modal fade in">
                 Lets define the Categories of work that will be accomplished. IE. Web assessments, Network assessment, etc..
-                <form>
+
                     <fieldset>
 
                         <select name="selectfrom" id="select-from" multiple size="5">
@@ -84,10 +78,12 @@
 
                     });
                 </script>
-              </div>
-                Congrats on setting up some categories
 
-             <div class="slide"><div id="task-startup" class="block-flat"></div>
+                Congrats on setting up some categories
+            <input type="button" class="btn btn-primary btn-flat" id="user-setup" name="prev-user-button" data-toggle="modal" data-target="#user-startup" value="Previous"/>
+            <input type="button" class="btn btn-primary btn-flat" id="task-setup" name="next-task-button" data-toggle="modal" data-target="#task-startup" value="Next"/>
+                </div>
+            <div id="task-startup" class="modal fade in">
                 Lets setup some tasks that have to be accomplished for each category of work. IE. Scanning, Input validation, etc..
 
                  <fieldset>
@@ -166,10 +162,13 @@
 
                  </fieldset>
 
-               </div>
+
                 Congrats on setting up some tasks
 
-             <div class="slide"><div id="finding-startup" class="block-flat"></div>
+        <input type="button" class="btn btn-primary btn-flat" id="task-setup" name="prev-task-button" data-toggle="modal" data-target="#task-startup" value="Previous"/>
+        <input type="button" class="btn btn-primary btn-flat" id="finding-setup" name="next-finding-button" data-toggle="modal" data-target="#finding-startup" value="Next"/>
+                </div>
+             <div id="finding-startup" class="modal fade in">
                 Lets setup your finding template.
 
                  <script type="text/javascript">
@@ -274,19 +273,20 @@
                      </div>
                  </div>
              </div>
-                </div>
+
                 Congrats on setting up your template.
-             <div class="slide"><div id="finish-up" class="block-flat"></div>
+        <input type="button" class="btn btn-primary btn-flat" id="task-setup" name="prev-task-button" data-toggle="modal" data-target="#task-startup" value="Previous"/>
+        <input type="button" class="btn btn-primary btn-flat" id="finish-setup" name="next-finding-button" data-toggle="modal" data-target="#finding-startup" value="Next"/>
+
+        <div id="finish-up" class="modal fade in">
                 Every thing seems to be ready to setup. Verify all the details below and Click submit.
 
                </div>
-            </div>
-        </div>
+
         <div class="text-center out-links block-flat" style="padding: 10px; margin-top: -15px;">
             <h4 class="title">&copy; 2014 reportIT</h4>
         </div>
-    </div>
-</div>
+
 <script src="../assets/js/jquery.js"></script>
 <script type="text/javascript" src="../assets/js/behaviour/general.js"></script>
 
